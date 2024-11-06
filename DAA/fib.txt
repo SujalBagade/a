@@ -1,0 +1,61 @@
+import java.util.*;
+public class fibtest {
+
+    static int RC = 0;
+    static int IC = 0;
+
+    public static int fibRec(int n) {
+        RC++;
+        if (n <= 1) {
+            return n;
+        }
+        return fibRec(n - 1) + fibRec(n - 2);
+    }
+
+    public static void printRec(int n) {
+        for (int i = 0; i < n; i++) {
+            System.out.print(fibRec(i) + " ");
+        }
+        System.out.println("\nRecursive steps: " + RC);
+    }
+
+    public static long fibIt(int n) {
+        if (n <= 1) {
+            System.out.println(n);
+            IC = 1;  // 1 step for initialization when n <= 1
+            return n;
+        }
+
+        long a = 0;
+        long b = 1;
+        System.out.print(a + " " + b + " ");
+        IC = 2;  // Counting initialization of first two terms
+
+        for (int i = 2; i <= n; i++) {
+            long c = a + b;
+            a = b;
+            b = c;
+            System.out.print(c + " ");
+            IC++;
+        }
+        System.out.println("\nNon-recursive steps: " + IC);
+        return b;
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the Fibonacci sequence limit: ");
+        int n = sc.nextInt();
+
+        System.out.println("Recursive Fibonacci Series:");
+        printRec(n);
+
+        // Reset RC for clarity, if you want to print it separately
+        RC = 0;
+
+        System.out.println("Non-recursive Fibonacci Series:");
+        fibIt(n);
+
+        sc.close();
+    }
+}
